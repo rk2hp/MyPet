@@ -53,7 +53,7 @@ canvas.width = Math.max(window.innerWidth, window.innerWidth);
 canvas.height = window.innerHeight;
 canvas.style.position = "absolute";
 canvas.style.left = "0px";
-canvas.style.top = "60px";
+canvas.style.top = "5em";
 document.body.style.overflow = "hidden";
 var ctx = canvas.getContext("2d");
 

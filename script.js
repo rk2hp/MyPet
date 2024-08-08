@@ -53,9 +53,10 @@ canvas.width = Math.max(window.innerWidth, window.innerWidth);
 canvas.height = window.innerHeight;
 canvas.style.position = "absolute";
 canvas.style.left = "0px";
-canvas.style.top = "0px";
+canvas.style.top = "60px";
 document.body.style.overflow = "hidden";
 var ctx = canvas.getContext("2d");
+
 //Necessary classes
 var segmentCount = 0;
 class Segment {

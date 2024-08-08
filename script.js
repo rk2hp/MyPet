@@ -266,26 +266,29 @@ class Creature {
     rRes,
     rThresh
   ) {
-    this.x = x; //Starting position
+    this.x = x; // Starting position
     this.y = y;
-    this.absAngle = angle; //Staring angle
-    this.fSpeed = 0; //Forward speed
-    this.fAccel = fAccel; //Force when moving forward
-    this.fFric = fFric; //Friction against forward motion
-    this.fRes = fRes; //Resistance to motion
-    this.fThresh = fThresh; //minimum distance to target to keep moving forward
-    this.rSpeed = 0; //Rotational speed
-    this.rAccel = rAccel; //Force when rotating
-    this.rFric = rFric; //Friction against rotation
-    this.rRes = rRes; //Resistance to rotation
-    this.rThresh = rThresh; //Maximum angle difference before rotation
+    this.absAngle = angle; // Starting angle
+    this.fSpeed = 0; // Forward speed
+    this.fAccel = fAccel; // Force when moving forward
+    this.fFric = fFric; // Friction against forward motion
+    this.fRes = fRes; // Resistance to motion
+    this.fThresh = fThresh; // Minimum distance to target to keep moving forward
+    this.rSpeed = 0; // Rotational speed
+    this.rAccel = rAccel; // Force when rotating
+    this.rFric = rFric; // Friction against rotation
+    this.rRes = rRes; // Resistance to rotation
+    this.rThresh = rThresh; // Maximum angle difference before rotation
     this.children = [];
     this.systems = [];
+    this.headImage = new Image();
+    this.headImage.src = 'dragonImage.png'; // Replace with the path to your image
   }
+
   follow(x, y) {
     var dist = ((this.x - x) ** 2 + (this.y - y) ** 2) ** 0.5;
     var angle = Math.atan2(y - this.y, x - this.x);
-    //Update forward
+    // Update forward motion
     var accel = this.fAccel;
     if (this.systems.length > 0) {
       var sum = 0;
@@ -297,7 +300,7 @@ class Creature {
     this.fSpeed += accel * (dist > this.fThresh);
     this.fSpeed *= 1 - this.fRes;
     this.speed = Math.max(0, this.fSpeed - this.fFric);
-    //Update rotation
+    // Update rotation
     var dif = this.absAngle - angle;
     dif -= 2 * Math.PI * Math.floor(dif / (2 * Math.PI) + 1 / 2);
     if (Math.abs(dif) > this.rThresh && dist > this.fThresh) {
@@ -309,11 +312,9 @@ class Creature {
     } else {
       this.rSpeed = 0;
     }
-
-    //Update position
+    // Update position
     this.absAngle += this.rSpeed;
-    this.absAngle -=
-      2 * Math.PI * Math.floor(this.absAngle / (2 * Math.PI) + 1 / 2);
+    this.absAngle -= 2 * Math.PI * Math.floor(this.absAngle / (2 * Math.PI) + 1 / 2);
     this.x += this.speed * Math.cos(this.absAngle);
     this.y += this.speed * Math.sin(this.absAngle);
     this.absAngle += Math.PI;
@@ -326,29 +327,16 @@ class Creature {
     this.absAngle -= Math.PI;
     this.draw(true);
   }
+  
   draw(iter) {
-    var r = 4;
-    ctx.beginPath();
-    ctx.arc(
-      this.x,
-      this.y,
-      r,
-      Math.PI / 4 + this.absAngle,
-      7 * Math.PI / 4 + this.absAngle
-    );
-    ctx.moveTo(
-      this.x + r * Math.cos(7 * Math.PI / 4 + this.absAngle),
-      this.y + r * Math.sin(7 * Math.PI / 4 + this.absAngle)
-    );
-    ctx.lineTo(
-      this.x + r * Math.cos(this.absAngle) * 2 ** 0.5,
-      this.y + r * Math.sin(this.absAngle) * 2 ** 0.5
-    );
-    ctx.lineTo(
-      this.x + r * Math.cos(Math.PI / 4 + this.absAngle),
-      this.y + r * Math.sin(Math.PI / 4 + this.absAngle)
-    );
-    ctx.stroke();
+    // Draw the creature's head using the image
+    var headSize = 32; // Adjust the size as needed
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.absAngle);
+    ctx.drawImage(this.headImage, -headSize / 2, -headSize / 2, headSize, headSize);
+    ctx.restore();
+    
     if (iter) {
       for (var i = 0; i < this.children.length; i++) {
         this.children[i].draw(true);
@@ -356,6 +344,7 @@ class Creature {
     }
   }
 }
+
 //Initializes and animates
 var critter;
 function setupSimple() {

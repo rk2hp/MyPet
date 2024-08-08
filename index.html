@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>MyPet</title>
   <style>
-    body{
-      margin: 0;
-      padding:0;
-    }
-
-    header{
-      
+    *{
       margin: 0;
       padding: 0;
+    }
+    header {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,29 +18,60 @@
       width: 100%;
       /* border:2px solid green; */
       background-color: black;
+
+    }
+
+    h2 {
+     
+      color: white;
+    }
+
+    .p {
+    
+      color: white;
+    }
+
+    #para1 {
+      font-size: 19px;
+    }
+    .heading{
+      display: flex;
+      flex-direction:row ;
+    }
+    .logobox{
+      height: 25px;
+      width: 25px;
+      /* border: 2px solid red; */
       
     }
-    h2{
+    #logoImg{
       /* border: 2px solid red; */
-      padding: 0;
-      margin: 0;
-      color: white;
-    }
-    p{
-      padding: 0;
-      margin: 0;
-      color: white;
+      height:100%; 
+      width: 100%;
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h2>My Pet Dragon</h2>
+    <div class="heading">
+      <h2>My Pet Dragon </h2>
+      <div class="logobox">
+        <img id="logoImg" src="dragonImage.png" alt="">
+      </div>
+
+    </div>
     
-    <p>(when ever you refresh the page he will changes its size)</p>
-    <p>Owner RK2HP</p>
+
+    <p class="p" id="para1">( <span style="color: red; font-weight: bold;">Tap</span> anywhere on the screen and he will
+      follow you!)</p>
+    <p class="p" id="para2">Refresh your page and he will change its size
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+        style="color: red;">Owner RK2HP</span></p>
   </header>
-  <script  src="./script.js"></script>
-  
+  <script src="./script.js"></script>
+
 </body>
+
 </html>

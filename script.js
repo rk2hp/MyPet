@@ -330,7 +330,7 @@ class Creature {
   
   draw(iter) {
     // Draw the creature's head using the image
-    var headSize = 32; // Adjust the size as needed
+    var headSize = 62; // Adjust the size as needed
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.absAngle);

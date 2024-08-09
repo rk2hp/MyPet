@@ -588,11 +588,6 @@ function setupLizard(size, legs, tail) {
 
 canvas.style.backgroundColor = "black";
 ctx.strokeStyle = 'rgba(255, 255, 255, 1)'; // White Stroke
-// Set up glowing effect
-ctx.shadowColor = 'rgba(255, 255, 255, 1)'; // White Glow
-ctx.shadowBlur = 30; // Blur radius
-ctx.lineWidth = 3; // Line width
-
 
 // setupSimple();//Just the very basic string
 // setupTentacle();//Tentacle that reaches for mouse/

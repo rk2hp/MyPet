@@ -349,17 +349,17 @@ class Creature {
 
 const textAdd = "Tap anywhere on the screen and he will follow you!"; // Define the project name
 const textWidth = ctx.measureText(textAdd).width;
-const textX = (canvas.width - (textWidth + textWidth)) / 2 ;// X position of the text
+const textX = (canvas.width - (textWidth*3.2)) / 2 ;// X position of the text
 // console.log(canvas.width);
 // console.log(textWidth);
 // console.log(textX);
 
 // const textX = 10;
-const textY = 60; // Y position of the text
+const textY = 300; // Y position of the text
 
 function drawProjectName() {
   ctx.fillStyle = textColor; // Set the text color
-  ctx.font = "25px Arial"; // Set the font size and type
+  ctx.font = "35px Arial"; // Set the font size and type
   ctx.fillText(textAdd, textX, textY); // Draw the text at the specified position
 }
 
@@ -370,7 +370,7 @@ function checkCollision() {
   // Head position
   const headX = critter.x; // Center of the head
   const headY = critter.y; // Center of the head
-  const headSize = 62; // Adjust according to the creature's head size
+  const headSize = 45; // Adjust according to the creature's head size
 
   // Check if the head is within the bounding box of the text
   if (

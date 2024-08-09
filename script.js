@@ -49,14 +49,11 @@ document.addEventListener("mousemove", function (event) {
 var canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
 canvas.width = Math.max(window.innerWidth, window.innerWidth);
-// canvas.width = window.innerWidth * 0.5;
-
-//canvas.height = Math.max(window.innerWidth, window.innerWidth);
 
 canvas.height = window.innerHeight;
 canvas.style.position = "absolute";
 canvas.style.left = "0px";
-canvas.style.top = "80px";
+canvas.style.top = "5em";
 document.body.style.overflow = "hidden";
 var ctx = canvas.getContext("2d");
 
@@ -351,14 +348,18 @@ class Creature {
 //to write something on the canvas
 
 const textAdd = "Tap anywhere on the screen and he will follow you!"; // Define the project name
-
 const textWidth = ctx.measureText(textAdd).width;
-const textX = (canvas.width - textWidth) / 2 ;// X position of the text
-const textY = 30; // Y position of the text
+const textX = (canvas.width - (textWidth + textWidth)) / 2 ;// X position of the text
+// console.log(canvas.width);
+// console.log(textWidth);
+// console.log(textX);
+
+// const textX = 10;
+const textY = 60; // Y position of the text
 
 function drawProjectName() {
   ctx.fillStyle = textColor; // Set the text color
-  ctx.font = "30px Arial"; // Set the font size and type
+  ctx.font = "25px Arial"; // Set the font size and type
   ctx.fillText(textAdd, textX, textY); // Draw the text at the specified position
 }
 

@@ -49,13 +49,14 @@ document.addEventListener("mousemove", function (event) {
 var canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
 canvas.width = Math.max(window.innerWidth, window.innerWidth);
+// canvas.width = window.innerWidth * 0.5;
 
 //canvas.height = Math.max(window.innerWidth, window.innerWidth);
 
 canvas.height = window.innerHeight;
 canvas.style.position = "absolute";
 canvas.style.left = "0px";
-canvas.style.top = "5em";
+canvas.style.top = "80px";
 document.body.style.overflow = "hidden";
 var ctx = canvas.getContext("2d");
 
@@ -349,18 +350,20 @@ class Creature {
 
 //to write something on the canvas
 
-const projectName = "Dragon"; // Define the project name
-const textX = 600; // X position of the text
-const textY = 300; // Y position of the text
+const textAdd = "Tap anywhere on the screen and he will follow you!"; // Define the project name
+
+const textWidth = ctx.measureText(textAdd).width;
+const textX = (canvas.width - textWidth) / 2 ;// X position of the text
+const textY = 30; // Y position of the text
 
 function drawProjectName() {
   ctx.fillStyle = textColor; // Set the text color
   ctx.font = "30px Arial"; // Set the font size and type
-  ctx.fillText(projectName, textX, textY); // Draw the text at the specified position
+  ctx.fillText(textAdd, textX, textY); // Draw the text at the specified position
 }
 
 function checkCollision() { 
-  const textWidth = ctx.measureText(projectName).width; // Width of the text
+  const textWidth = ctx.measureText(textAdd).width; // Width of the text
   const textHeight = 30; // Height of the text (adjust as needed)
 
   // Head position
@@ -588,6 +591,11 @@ function setupLizard(size, legs, tail) {
 
 canvas.style.backgroundColor = "black";
 ctx.strokeStyle = 'rgba(255, 255, 255, 1)'; // White Stroke
+// Set up glowing effect
+// ctx.shadowColor = 'rgba(255, 255, 255, 1)'; // White Glow
+// ctx.shadowBlur = 30; // Blur radius
+// ctx.lineWidth = 3; // Line width
+
 
 // setupSimple();//Just the very basic string
 // setupTentacle();//Tentacle that reaches for mouse/

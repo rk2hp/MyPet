@@ -1,3 +1,5 @@
+let textColor = "white"; // Initial text color
+
 var Input = {
   keys: [],
   mouse: {
@@ -11,13 +13,13 @@ var Input = {
 for (var i = 0; i < 230; i++) {
   Input.keys.push(false);
 }
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
   Input.keys[event.keyCode] = true;
 });
-document.addEventListener("keyup", function(event) {
+document.addEventListener("keyup", function (event) {
   Input.keys[event.keyCode] = false;
 });
-document.addEventListener("mousedown", function(event) {
+document.addEventListener("mousedown", function (event) {
   if ((event.button = 0)) {
     Input.mouse.left = true;
   }
@@ -28,7 +30,7 @@ document.addEventListener("mousedown", function(event) {
     Input.mouse.right = true;
   }
 });
-document.addEventListener("mouseup", function(event) {
+document.addEventListener("mouseup", function (event) {
   if ((event.button = 0)) {
     Input.mouse.left = false;
   }
@@ -39,7 +41,7 @@ document.addEventListener("mouseup", function(event) {
     Input.mouse.right = false;
   }
 });
-document.addEventListener("mousemove", function(event) {
+document.addEventListener("mousemove", function (event) {
   Input.mouse.x = event.clientX;
   Input.mouse.y = event.clientY;
 });
@@ -80,8 +82,8 @@ class Segment {
     this.relAngle =
       this.relAngle -
       2 *
-        Math.PI *
-        Math.floor((this.relAngle - this.defAngle) / 2 / Math.PI + 1 / 2);
+      Math.PI *
+      Math.floor((this.relAngle - this.defAngle) / 2 / Math.PI + 1 / 2);
     if (flex) {
       //		this.relAngle=this.range/
       //				(1+Math.exp(-4*(this.relAngle-this.defAngle)/
@@ -219,12 +221,12 @@ class LegSystem extends LimbSystem {
         this.goalX =
           this.hip.x +
           this.reach *
-            Math.cos(this.swing + this.hip.absAngle + this.swingOffset) +
+          Math.cos(this.swing + this.hip.absAngle + this.swingOffset) +
           (2 * Math.random() - 1) * this.reach / 2;
         this.goalY =
           this.hip.y +
           this.reach *
-            Math.sin(this.swing + this.hip.absAngle + this.swingOffset) +
+          Math.sin(this.swing + this.hip.absAngle + this.swingOffset) +
           (2 * Math.random() - 1) * this.reach / 2;
       }
     } else if (this.step == 1) {
@@ -327,7 +329,7 @@ class Creature {
     this.absAngle -= Math.PI;
     this.draw(true);
   }
-  
+
   draw(iter) {
     // Draw the creature's head using the image
     var headSize = 62; // Adjust the size as needed
@@ -336,12 +338,44 @@ class Creature {
     ctx.rotate(this.absAngle);
     ctx.drawImage(this.headImage, -headSize / 2, -headSize / 2, headSize, headSize);
     ctx.restore();
-    
+
     if (iter) {
       for (var i = 0; i < this.children.length; i++) {
         this.children[i].draw(true);
       }
     }
+  }
+}
+
+//to write something on the canvas
+
+const projectName = "Dragon"; // Define the project name
+const textX = 600; // X position of the text
+const textY = 300; // Y position of the text
+
+function drawProjectName() {
+  ctx.fillStyle = textColor; // Set the text color
+  ctx.font = "30px Arial"; // Set the font size and type
+  ctx.fillText(projectName, textX, textY); // Draw the text at the specified position
+}
+
+function checkCollision() { 
+  const textWidth = ctx.measureText(projectName).width; // Width of the text
+  const textHeight = 30; // Height of the text (adjust as needed)
+
+  // Head position
+  const headX = critter.x; // Center of the head
+  const headY = critter.y; // Center of the head
+  const headSize = 62; // Adjust according to the creature's head size
+
+  // Check if the head is within the bounding box of the text
+  if (
+    headX + headSize > textX &&
+    headX - headSize < textX + textWidth &&
+    headY + headSize > textY - textHeight &&
+    headY - headSize < textY
+  ) {
+    textColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
   }
 }
 
@@ -367,9 +401,11 @@ function setupSimple() {
   for (var i = 0; i < 128; i++) {
     var node = new Segment(node, 8, 0, 3.14159 / 2, 1);
   }
-  setInterval(function() {
+  setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     critter.follow(Input.mouse.x, Input.mouse.y);
+    drawProjectName(); // Call the function to draw the name
+    checkCollision(); // Check for collision
   }, 33);
 }
 function setupTentacle() {
@@ -394,12 +430,14 @@ function setupTentacle() {
   }
   //(end,length,speed,creature)
   var tentacle = new LimbSystem(node, 32, 8, critter);
-  setInterval(function() {
+  setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     critter.follow(canvas.width / 2, canvas.height / 2);
     ctx.beginPath();
     ctx.arc(Input.mouse.x, Input.mouse.y, 2, 0, 6.283);
     ctx.fill();
+    drawProjectName(); // Call the function to draw the name
+    checkCollision(); // Check for collision
   }, 33);
 }
 function setupArm() {
@@ -423,9 +461,11 @@ function setupArm() {
     var node = new Segment(node, 80, 0, 3.1416, 1);
   }
   var tentacle = new LimbSystem(node, 3, critter);
-  setInterval(function() {
+  setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     critter.follow(canvas.width / 2, canvas.height / 2);
+    drawProjectName(); // Call the function to draw the name
+    checkCollision(); // Check for collision
   }, 33);
   ctx.beginPath();
   ctx.arc(Input.mouse.x, Input.mouse.y, 2, 0, 6.283);
@@ -464,9 +504,11 @@ function setupTestSquid(size, legs) {
     //(end,length,speed,creature,dist)
     var leg = new LegSystem(node, jointNum, size * 30, critter);
   }
-  setInterval(function() {
+  setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     critter.follow(Input.mouse.x, Input.mouse.y);
+    drawProjectName(); // Call the function to draw the name
+    checkCollision(); // Check for collision
   }, 33);
 }
 function setupLizard(size, legs, tail) {
@@ -536,9 +578,11 @@ function setupLizard(size, legs, tail) {
       }
     }
   }
-  setInterval(function() {
+  setInterval(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     critter.follow(Input.mouse.x, Input.mouse.y);
+    drawProjectName(); // Call the function to draw the name
+    checkCollision(); // Check for collision
   }, 33);
 }
 canvas.style.backgroundColor = "black";
@@ -553,3 +597,5 @@ setupLizard(
   legNum,
   Math.floor(4 + Math.random() * legNum * 8)
 );
+
+
